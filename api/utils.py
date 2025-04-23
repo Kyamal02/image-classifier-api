@@ -27,7 +27,7 @@ def format_predictions(predictions, top_k=5):
 
     results = [
         {"class_id": class_id, "class_name": class_name, "probability": float(score)}
-        for _, class_name, score in decoded_predictions
+        for class_id, class_name, score in decoded_predictions
     ]
 
     return results
