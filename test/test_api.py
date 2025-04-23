@@ -21,7 +21,7 @@ def test_root_endpoint():
 # Тесты для эндпоинта классификации
 @patch('api.main.load_model')
 @patch('api.main.preprocess_image')
-@patch('api.main.format_predictions')  # Правильный путь для патча
+@patch('api.main.format_predictions')
 def test_classify_endpoint(mock_format, mock_preprocess, mock_load_model):
     mock_preprocess.return_value = np.zeros((1, 224, 224, 3))
 
