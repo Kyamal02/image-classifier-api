@@ -15,14 +15,14 @@ model = None
 def load_model():
     global model
     if model is None:
-        # Используем предварительно обученную легкую модель MobileNetV2
         model = tf.keras.applications.MobileNetV2(weights="imagenet")
     return model
 
 
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # заменить
+    allow_origins=["*"],  # изменить
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -35,7 +35,6 @@ async def classify_image(file: UploadFile = File(...)):
     Загрузите изображение для классификации.
     Возвращает список из 5 наиболее вероятных классов.
     """
-    # Проверка расширения файла
     allowed_extensions = ["jpg", "jpeg", "png"]
     file_extension = file.filename.split(".")[-1].lower()
 
@@ -63,6 +62,7 @@ async def classify_image(file: UploadFile = File(...)):
         }
 
     except Exception as e:
+        print(f"Ошибка при обработке изображения: {str(e)}")  # Для отладки
         raise HTTPException(status_code=500, detail=f"Ошибка при обработке изображения: {str(e)}")
 
 
@@ -78,9 +78,3 @@ async def root():
             "/classify/": "Загрузка и классификация изображений"
         }
     }
-
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8000)

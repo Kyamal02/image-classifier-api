@@ -25,6 +25,7 @@ def format_predictions(predictions, top_k=5):
     """
     decoded_predictions = tf.keras.applications.mobilenet_v2.decode_predictions(predictions, top=top_k)[0]
 
+
     results = [
         {"class_id": class_id, "class_name": class_name, "probability": float(score)}
         for class_id, class_name, score in decoded_predictions
