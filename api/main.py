@@ -5,12 +5,15 @@ import numpy as np
 import tensorflow as tf
 from PIL import Image
 import io
-from api.utils import preprocess_image, format_predictions
+from .utils import preprocess_image, format_predictions
 
 app = FastAPI(title="Классификатор изображений API")
 
 model = None
 
+@app.on_event("startup")
+async def startup():
+    load_model()
 
 def load_model():
     global model
